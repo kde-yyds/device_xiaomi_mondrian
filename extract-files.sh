@@ -106,6 +106,9 @@ function blob_fixup() {
         vendor/bin/hw/android.hardware.security.keymint-service-qti | vendor/lib64/libqtikeymint.so)
             "${PATCHELF}" --add-needed "android.hardware.security.rkp-V1-ndk.so" "${2}"
             ;;
+        vendor/bin/qcc-trd)
+            "${PATCHELF}" --replace-needed "libgrpc++_unsecure.so" "libgrpc++_unsecure_prebuilt.so" "${2}"
+            ;;
         vendor/lib/c2.dolby.client.so)
             "${PATCHELF}" --add-needed "libcodec2_hidl_shim.so" "${2}"
             ;;

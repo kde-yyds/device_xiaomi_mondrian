@@ -12,6 +12,7 @@
 
 #define FINGERPRINT_GL "Redmi/mondrian/mondrian:13/SKQ1.220303.001/V14.0.26.0.TMNCNXM:user/release-keys"
 #define FINGERPRINT_CN "Redmi/mondrian/mondrian:13/SKQ1.220303.001/V14.0.26.0.TMNCNXM:user/release-keys"
+#define FINGERPRINT_IN "Redmi/mondrian/mondrian:13/SKQ1.220303.001/V14.0.26.0.TMNCNXM:user/release-keys"
 
 static const variant_info_t mondrian_global_info = {
     .hwc_value = "GL",
@@ -25,7 +26,7 @@ static const variant_info_t mondrian_global_info = {
     .build_fingerprint = FINGERPRINT_GL,
 };
 
-static const variant_info_t mondrian_info = {
+static const variant_info_t mondrian_cn_info = {
     .hwc_value = "CN",
     .sku_value = "",
 
@@ -37,9 +38,22 @@ static const variant_info_t mondrian_info = {
     .build_fingerprint = FINGERPRINT_CN,
 };
 
+static const variant_info_t mondrian_in_info = {
+    .hwc_value = "IN",
+    .sku_value = "",
+
+    .brand = "Xiaomi",
+    .device = "mondrian",
+    .marketname = "Redmi K60",
+    .model = "23013RK75I",
+    .mod_device = "mondrian",
+    .build_fingerprint = FINGERPRINT_IN,
+};
+
 static const std::vector<variant_info_t> variants = {
     mondrian_global_info,
-    mondrian_info,
+    mondrian_cn_info,
+    mondrian_in_info,
 };
 
 void vendor_load_properties() {

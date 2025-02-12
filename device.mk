@@ -433,7 +433,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
 
 PRODUCT_PACKAGES += \
-    libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti_vendor \
     vendor.qti.hardware.systemhelper@1.0.vendor
 
@@ -615,22 +614,21 @@ PRODUCT_COPY_FILES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.6.vendor \
-    android.hardware.wifi@1.0-service \
+    android.hardware.wifi-service \
     android.hardware.wifi.hostapd@1.0.vendor \
     hostapd \
     hostapd_cli \
-    libwifi-hal-qcom \
-    libwpa_client \
+    libwifi-hal-qcom:64 \
+    libwpa_client:64 \
     wpa_cli \
     wpa_supplicant \
-    wpa_supplicant.conf \
-    libwifi-system-iface.vendor
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/vendor_cmd.xml:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/vendor_cmd.xml \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg_qca6490.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6490/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg_qca6750.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6750/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 PRODUCT_COPY_FILES += \
@@ -640,27 +638,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
-TARGET_WLAN_CHIP := qca6490 qca6750
-
-WLAN_CHIPSET := qca_cld3
-
-# Force chip-specific DLKM name
-TARGET_MULTI_WLAN := true
-
-#WPA
-WPA := wpa_cli
-
-# Package chip specific ko files if TARGET_WLAN_CHIP is defined.
-ifneq ($(TARGET_WLAN_CHIP),)
-	PRODUCT_PACKAGES += $(foreach chip, $(TARGET_WLAN_CHIP), $(WLAN_CHIPSET)_$(chip).ko)
-else
-	PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
-endif
-
 # WiFi Display
 PRODUCT_PACKAGES += \
-    libnl \
-    libwfdaac_vendor
+    libwfdaac_vendor:64
+
+PRODUCT_BOOT_JARS += \
+    WfdCommon
 
 # XiaomiParts
 PRODUCT_PACKAGES += \
